@@ -1,0 +1,73 @@
+$key-color: #c4c4c4;
+$key-hover-color: #d3d6da;
+
+$key-exact-color: #3acf3a;
+$key-exact-hover-color: #77cc77;
+
+$key-misplaced-color: #f1cf37;
+$key-misplaced-hover-color: #fce669;
+
+$key-unused-color: #6e6e6e;
+$key-unused-hover-color: #929292;
+
+.keyboard
+{
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+.keyboard .key-row
+{
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.keyboard .key-row .key
+{
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 6px;
+  background-color: $key-color;
+  
+  height: 30px;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.keyboard .key-row .key:hover
+{
+  background-color: $key-hover-color;
+}
+
+.keyboard .key-row .key.exact
+{
+  background-color: $key-exact-color;
+}
+
+.keyboard .key-row .key.exact:hover
+{
+  background-color: $key-exact-hover-color;
+}
+
+.keyboard .key-row .key.misplaced
+{
+  background-color: $key-misplaced-color;
+}
+
+.keyboard .key-row .key.misplaced:hover
+{
+  background-color: $key-misplaced-hover-color;
+}
+
+.keyboard .key-row .key.unused
+{
+  background-color: $key-unused-color;
+}
+
+.keyboard .key-row .key.unused:hover
+{
+  background-color: $key-unused-hover-color;
+}
