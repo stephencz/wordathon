@@ -4,7 +4,7 @@ header
 {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   
   border-bottom: 1px solid $header-border-color;
   padding-top: 10px;
@@ -15,16 +15,4 @@ header .game-name
 {
   font-weight: 700;
   font-size: 2rem;
-}
-
-header .game-instructions img,
-header .game-settings img
-{
-  width: 25px;
-}
-
-header .game-instructions img:hover,
-header .game-settings img:hover
-{
-  opacity: 0.5;
 }

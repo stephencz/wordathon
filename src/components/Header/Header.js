@@ -1,20 +1,16 @@
 import React from "react";
 
-import SettingsIcon from './setting.png';
-import QuestionIcon from './question.png';
+import { useSelector } from "react-redux";
 
 import './Header.scss';
 
 const Header = (props) => {
+
+  const streak = useSelector((state) => state.game.streak);
+
   return (
     <header>
-      <div className="game-instructions">
-        <img src={QuestionIcon} alt="A button for game instructions." />
-      </div>
       <div className="game-name">WORDATHON</div>
-      <div className="game-settings">
-        <img src={ SettingsIcon } alt="A button for game settings." />
-      </div>
     </header>
   )
 }

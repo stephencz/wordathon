@@ -1,11 +1,12 @@
-import { current } from '@reduxjs/toolkit';
 import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
+
 import { 
   resetGame
 } from '../../slices/game';
 
+import Close from "./close.png";
 import "./PromptManager.scss";
 
 const PromptManager = (props) => {
@@ -16,18 +17,10 @@ const PromptManager = (props) => {
   const streak = useSelector((state) => state.game.streak);
   const currentWord = useSelector((state) => state.game.currentWord);
 
-  const handleLoseShareButton = () => {
-
-  }
-
-  const handleLosePlayAgainButton = () => {
-    dispatch(resetGame());
-  }
-
   const renderLosePrompt = () => {
     return (
       <div className="prompt-wrapper">
-        <div className="lost-prompt">
+        <div className="prompt">
           <div className="lost-message">
             The word was: <span className="lost-current-word">{ currentWord.toUpperCase() }</span>
           </div>
@@ -44,6 +37,14 @@ const PromptManager = (props) => {
         </div>
       </div>
     )
+  }
+
+  const handleLoseShareButton = () => {
+
+  }
+
+  const handleLosePlayAgainButton = () => {
+    dispatch(resetGame());
   }
 
   const renderPrompt = () => {
