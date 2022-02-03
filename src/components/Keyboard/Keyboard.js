@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { 
@@ -21,6 +21,26 @@ const Keyboard = (props) => {
   const exactLetters = useSelector((state) => state.game.exactLetters);
   const misplacedLetters = useSelector((state) => state.game.misplacedLetters);
   const unusedLetters = useSelector((state) => state.game.unusedLetters);
+
+  const handleKeyPresses = (event) => {
+    if (event.keyCode >= 65 && event.keyCode <= 90) {
+      dispatch(addLetter({ letter: event.key }))
+    
+    } else if (event.keyCode === 8 || event.keyCode === 46) {
+      dispatch(removeLetter());
+
+    } else if (event.keyCode === 13) {
+      dispatch(submitWord());
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyPresses);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyPresses);
+    }
+  });
 
   const handleEnterKey = (event) => {
     dispatch(submitWord())

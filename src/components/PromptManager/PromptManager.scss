@@ -1,0 +1,93 @@
+$button-color: #b7b7b7;
+$button-hover-color: #969696;
+
+.prompt-wrapper
+{
+  position: fixed;
+  display: flex;
+  flex: 1;
+
+  justify-content: center;
+  align-items: center;
+  
+  background: rgb(0, 0, 0, .25);
+
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+
+  -webkit-transition: 0.2 ease-out;
+  -moz-transition: 0.2 ease-out;
+  -o-transition: 0.2 ease-out;
+  transition: 0.2 ease-out;
+}
+
+.lost-prompt
+{
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+
+  border-radius: 15px;
+  background: rgb(255, 255, 255);
+
+  width: 400px;
+  height: 470px;
+
+  padding: 20px;
+
+  -webkit-transition: 0.5 ease-out;
+  -moz-transition: 0.5 ease-out;
+  -o-transition: 0.5 ease-out;
+  transition: 0.5 ease-out;
+}
+
+.lost-prompt .lost-message
+{
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.lost-prompt .lost-streak
+{
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+.lost-prompt .lost-streak span.lost-streak-text,
+.lost-prompt .lost-message span.lost-current-word
+{
+  font-weight: 700;
+}
+
+.lost-prompt .lost-buttons
+{
+  display: flex;
+  flex-direction: row;
+  margin-top: 2rem;
+}
+
+.lost-prompt .lost-buttons .play-again-button,
+.lost-prompt .lost-buttons .share-button
+{
+  border-radius: 10px;
+  background-color: $button-color;
+  font-size: 2rem;
+  padding: 15px 20px 15px 20px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.lost-prompt .lost-buttons .play-again-button:hover,
+.lost-prompt .lost-buttons .share-button:hover
+{
+  background-color: $button-hover-color;
+}

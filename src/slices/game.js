@@ -54,7 +54,7 @@ const gameSlice = createSlice({
      */
     unusedWords: words,
 
-    prompt: null
+    status: null
 
   }, 
   reducers: {
@@ -76,17 +76,58 @@ const gameSlice = createSlice({
 
       state.history = [];
 
+      state.status = null;
+
+      if(state.unusedWords.length >= 0) {
+        state.unusedWords = words;
+      }
+
       let randomWordIndex = Math.floor(Math.random() * state.unusedWords.length);
       state.currentWord = state.unusedWords[randomWordIndex];
       state.unusedWords = state.unusedWords.filter(word => word !== state.unusedWords[randomWordIndex]);
     },
     
+    /**
+     * Advances the game to the next round.
+     * @param {*} state 
+     */
+    advanceRound(state) {
+      state.boardData = ["", "", "", "", "", ""];
+
+      state.streak = state.streak + 1;
+      state.currentTurn = 0;
+
+      state.exactLetters = [];
+      state.misplacedLetters = [];
+      state.unusedLetters = [];
+
+      state.history = [];
+      state.status = null
+
+      if(state.unusedWords.length >= 0) {
+        state.unusedWords = words;
+      }
+
+      let randomWordIndex = Math.floor(Math.random() * state.unusedWords.length);
+      state.currentWord = state.unusedWords[randomWordIndex];
+      state.unusedWords = state.unusedWords.filter(word => word !== state.unusedWords[randomWordIndex]);
+    },
+
+    /**
+     * Adds a letter to the board.
+     * @param {*} state 
+     * @param {*} action 
+     */
     addLetter(state, action) {
       if(state.boardData[state.currentTurn].length < 6) {
         state.boardData[state.currentTurn] = state.boardData[state.currentTurn] + action.payload.letter;
       }
     },
 
+    /**
+     * Removes a letter from the board.
+     * @param {*} state 
+     */
     removeLetter(state) {
       if(state.boardData[state.currentTurn].length > 0) {
         let dataLength = state.boardData[state.currentTurn].length
@@ -94,8 +135,15 @@ const gameSlice = createSlice({
       }
     },
 
+    /**
+     * Processes the user's word submission.
+     * @param {*} state 
+     */
     submitWord(state) {
-      if(state.boardData[state.currentTurn].length === 6) {
+
+      // First we check to make sure that the word as a length of six or more
+      // because smaller lengths are invalid.
+      if(state.boardData[state.currentTurn].length >= 6) {
         let boardWordData = state.boardData[state.currentTurn].toUpperCase().split('');
         let currentWordData = state.currentWord.toUpperCase().split('');
 
@@ -113,33 +161,38 @@ const gameSlice = createSlice({
           }
         }
 
-        // If the player guessed the word prompt them with congratulations
-        // and ask if they want to continue.
-        if(state.boardData[state.currentTurn].toUpperCase() === state.currentWord.toUpperCase()) {
-          state.prompt = "round_won"
+        if(state.boardData[state.currentTurn].toUpperCase() !== state.currentWord.toUpperCase()) {
+          if(state.currentTurn >= 5) {
+            state.status = "round_lost";
+          } else {
+            state.currentTurn = state.currentTurn + 1;
 
-        } else {
-
-          // If the player is out of guessing turns prompt them with 
-          // losing screen.
-          if(state.currentTurn > 5) {
-            state.prompt = "round_lost";
           }
+        } else {
+          state.status = "round_won"
+          state.currentTurn = state.currentTurn + 1;
         }
-      }
+      }      
+    },
 
-      
-
-      state.currentTurn = state.currentTurn + 1;
+    /**
+     * Changes the game's status.
+     * @param {*} state 
+     * @param {*} action 
+     */
+    setStatus(state, action) {
+      state.status = action.payload.status;
     }
   }
 })
 
 export const {
   resetGame,
+  advanceRound,
   addLetter,
   removeLetter,
-  submitWord
+  submitWord,
+  setStatus
 
 } = gameSlice.actions;
 

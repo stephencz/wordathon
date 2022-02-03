@@ -1,9 +1,16 @@
 $empty-tile-border-color: #a1a1a1;
 $initial-tile-border-color: #696969;
 
-$tile-exact-color: #3acf3a;
-$tile-misplaced-color: #f1cf37;
-$tile-unused-color: #6e6e6e;
+$tile-exact-color: #67b566;
+$tile-exact-border-color: #3b7a3b;
+
+$tile-misplaced-color: #ddc24c;
+$tile-misplaced-border-color: #c0a42a;
+
+$tile-unused-color: #a5a5a5;
+$tile-unused-border-color: #8b8b8b;
+
+$tile-color-transition-time: 0.25s;
 
 
 .board-wrapper
@@ -54,26 +61,52 @@ $tile-unused-color: #6e6e6e;
 .board .board-row .row-tile.initial
 {
   border: 2px solid $initial-tile-border-color;
+
+  -webkit-transition: $tile-color-transition-time ease-out;
+  -moz-transition: $tile-color-transition-time ease-out;
+  -o-transition: $tile-color-transition-time ease-out;
+  transition: $tile-color-transition-time ease-out;
 }
 
 .board .board-row .row-tile.empty
 {
   border: 2px solid $empty-tile-border-color;
+
+  -webkit-transition: $tile-color-transition-time ease-out;
+  -moz-transition: $tile-color-transition-time ease-out;
+  -o-transition: $tile-color-transition-time ease-out;
+  transition: $tile-color-transition-time ease-out;
 }
 
 .board .board-row .row-tile.exact
 {
+  border: 2px solid $tile-exact-border-color;
   background-color: $tile-exact-color;
+
+  -webkit-transition: $tile-color-transition-time ease-out;
+  -moz-transition: $tile-color-transition-time ease-out;
+  -o-transition: $tile-color-transition-time ease-out;
+  transition: $tile-color-transition-time ease-out;
 }
 
 .board .board-row .row-tile.misplaced
 {
+  border: 2px solid $tile-misplaced-border-color;
   background-color: $tile-misplaced-color;
 
+  -webkit-transition: $tile-color-transition-time ease-out;
+  -moz-transition: $tile-color-transition-time ease-out;
+  -o-transition: $tile-color-transition-time ease-out;
+  transition: $tile-color-transition-time ease-out;
 }
 
 .board .board-row .row-tile.unused
 {
+  border: 2px solid $tile-unused-border-color;
   background-color: $tile-unused-color;
 
+  -webkit-transition: $tile-color-transition-time ease-out;
+  -moz-transition: $tile-color-transition-time ease-out;
+  -o-transition: $tile-color-transition-time ease-out;
+  transition: $tile-color-transition-time ease-out;
 }

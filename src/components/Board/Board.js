@@ -1,21 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  advanceRound
+} from "../../slices/game";
 
 import './Board.scss';
 
 const Board = (props) => {
 
+  const dispatch = useDispatch();
+
   const boardData = useSelector((state) => state.game.boardData);
   const currentWord = useSelector((state) => state.game.currentWord);
   const currentTurn = useSelector((state) => state.game.currentTurn);
+  const status = useSelector((state) => state.game.status);
 
+  useEffect(() => {
+    if(status === "round_won") {
+      const timer = setTimeout(() => {
+        dispatch(advanceRound())
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+    
+  }, [boardData, status, dispatch])
 
   const generateGameBoardRow = (row, indice) => {
 
     let rowTiles = []
     let rowCharacter = row.toUpperCase().split('');
     let currentWordData = currentWord.toUpperCase().split('')
+    let remainingLetters = currentWord.toUpperCase().split('')
+
+    // Process exact matches from remaining letters to avoid showing
+    // a misplaced letter for letters that have an exact
+    for(let i = 0; i < 6; i++) {
+      if(rowCharacter[i] === currentWordData[i]) {
+        remainingLetters.splice(remainingLetters.indexOf(rowCharacter[i]), 1);
+      }
+    }
 
     for(let i = 0; i < 6; i++) {
 
@@ -39,15 +63,25 @@ const Board = (props) => {
                 { rowCharacter[i] }
               </div>
             )]
-  
-          } else if(currentWordData.includes(rowCharacter[i])) {
+
+          } else if(remainingLetters.includes(rowCharacter[i])) {
+
             rowTiles = [...rowTiles, (
               <div key={i} className="row-tile misplaced">
                 { rowCharacter[i] }
               </div>
-            )]
-  
+            )]  
+
+            remainingLetters.splice(remainingLetters.indexOf(rowCharacter[i]), 1)
+            
+            
           } else if(!currentWordData.includes(rowCharacter[i])) {
+            rowTiles = [...rowTiles, (
+              <div key={i} className="row-tile unused">
+                { rowCharacter[i] }
+              </div>
+            )]
+          } else {
             rowTiles = [...rowTiles, (
               <div key={i} className="row-tile unused">
                 { rowCharacter[i] }

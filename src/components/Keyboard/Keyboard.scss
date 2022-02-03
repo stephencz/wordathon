@@ -1,14 +1,14 @@
 $key-color: #c4c4c4;
 $key-hover-color: #d3d6da;
 
-$key-exact-color: #3acf3a;
-$key-exact-hover-color: #77cc77;
+$key-exact-color: #67b566;
+$key-exact-hover-color: #3b7a3b;
 
-$key-misplaced-color: #f1cf37;
-$key-misplaced-hover-color: #fce669;
+$key-misplaced-color: #ddc24c;
+$key-misplaced-hover-color: #c0a42a;
 
-$key-unused-color: #6e6e6e;
-$key-unused-hover-color: #929292;
+$key-unused-color: #8f8f8f;
+$key-unused-hover-color: #686868;
 
 .keyboard
 {
@@ -35,6 +35,8 @@ $key-unused-hover-color: #929292;
   height: 30px;
   padding: 5px;
   margin-right: 5px;
+
+  cursor: pointer;
 }
 
 .keyboard .key-row .key:hover
