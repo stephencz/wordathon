@@ -53,7 +53,7 @@ const PromptManager = (props) => {
       return "";
     }
     navigator.clipboard.writeText(
-      + "Difficulty: " + getDifficulty(difficulty) + "\n"
+      "Difficulty: " + getDifficulty(difficulty) + "\n"
       + "Streak: " + streak + " words\n" 
       + "I lost to the word: " + currentWord.toUpperCase() + "\n"
       + 'Play at: wordathon.stephencz.com')
