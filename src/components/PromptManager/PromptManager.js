@@ -16,16 +16,17 @@ const PromptManager = (props) => {
   const status = useSelector((state) => state.game.status);
   const streak = useSelector((state) => state.game.streak);
   const currentWord = useSelector((state) => state.game.currentWord);
+  const difficulty = useSelector((state) => state.game.difficulty);
 
   const renderLosePrompt = () => {
     return (
       <div className="prompt-wrapper">
         <div className="prompt">
           <div className="lost-message">
-            The word was: <span className="lost-current-word">{ currentWord.toUpperCase() }</span>
+            You lost. Nice try.
           </div>
           <div className="lost-message">
-            You lost. Nice try.
+            The word was: <span className="lost-current-word">{ currentWord.toUpperCase() }</span>
           </div>
           <div className="lost-streak">
             Streak: <span className="lost-streak-text">{ streak } words</span>
@@ -40,7 +41,22 @@ const PromptManager = (props) => {
   }
 
   const handleLoseShareButton = () => {
+    const getDifficulty = (difficulty) => {
+      if(difficulty === 4) {
+        return "Easy"
+      } else if(difficulty === 5) {
+        return "Normal"
+      } else if(difficulty === 6) {
+        return "Hard"
+      }
 
+      return "";
+    }
+    navigator.clipboard.writeText(
+      + "Difficulty: " + getDifficulty(difficulty) + "\n"
+      + "Streak: " + streak + " words\n" 
+      + "I lost to the word: " + currentWord.toUpperCase() + "\n"
+      + 'Play at: wordathon.stephencz.com')
   }
 
   const handleLosePlayAgainButton = () => {

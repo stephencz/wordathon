@@ -16,3 +16,18 @@ header .game-name
   font-weight: 700;
   font-size: 2rem;
 }
+
+header .game-difficulty
+{
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+header .game-difficulty select
+{
+  background-color: #ebebeb;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  padding: 3px;
+}

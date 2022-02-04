@@ -73,3 +73,11 @@ $key-unused-hover-color: #686868;
 {
   background-color: $key-unused-hover-color;
 }
+
+@media only screen and (max-height: 500px) {
+  .keyboard .key-row .key
+  {
+    height: 20px;
+    padding: 3px;
+  }
+}

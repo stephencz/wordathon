@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import words from './words.json'
+
+import FourWords from './word_4.json';
+import FiveWords from './words_5.json';
+import SixWords from './words_6.json';
+
 
 const gameSlice = createSlice({
   name: 'game',
@@ -52,9 +56,21 @@ const gameSlice = createSlice({
     /**
      * An Array of words that the user hasn't seen yet.
      */
-    unusedWords: words,
+    unusedWords: FiveWords,
 
-    status: null
+    /**
+     * The Game's status is used to do things such as trigger prompts, or
+     * advance the rounds.
+     */
+    status: null,
+
+    /**
+     * The Games difficulty settings. Available in Easy (4), Normal (5), and Hard (6).
+     */
+    difficulty: 5,
+
+    /** True if the sound should play. False if sound should not play. */
+    soundEnabled: true
 
   }, 
   reducers: {
@@ -64,7 +80,6 @@ const gameSlice = createSlice({
      * @param {*} state 
      */
     resetGame(state) {
-      
       state.boardData = ["", "", "", "", "", ""];
 
       state.streak = 0;
@@ -78,13 +93,20 @@ const gameSlice = createSlice({
 
       state.status = null;
 
-      if(state.unusedWords.length >= 0) {
-        state.unusedWords = words;
-      }
+      if(state.difficulty === 4) {
+        state.unusedWords = FourWords;
 
+      } else if(state.difficulty === 5) {
+        state.unusedWords = FiveWords;
+
+      } else if(state.difficulty === 6) {
+        state.unusedWords = SixWords;
+      }
+      
       let randomWordIndex = Math.floor(Math.random() * state.unusedWords.length);
       state.currentWord = state.unusedWords[randomWordIndex];
       state.unusedWords = state.unusedWords.filter(word => word !== state.unusedWords[randomWordIndex]);
+
     },
     
     /**
@@ -105,7 +127,15 @@ const gameSlice = createSlice({
       state.status = null
 
       if(state.unusedWords.length >= 0) {
-        state.unusedWords = words;
+        if(state.difficulty === 4) {
+          state.unusedWords = FourWords;
+  
+        } else if(state.difficulty === 5) {
+          state.unusedWords = FiveWords;
+  
+        } else if(state.difficulty === 6) {
+          state.unusedWords = SixWords;
+        }
       }
 
       let randomWordIndex = Math.floor(Math.random() * state.unusedWords.length);
@@ -119,7 +149,7 @@ const gameSlice = createSlice({
      * @param {*} action 
      */
     addLetter(state, action) {
-      if(state.boardData[state.currentTurn].length < 6) {
+      if(state.boardData[state.currentTurn].length < state.difficulty) {
         state.boardData[state.currentTurn] = state.boardData[state.currentTurn] + action.payload.letter;
       }
     },
@@ -143,11 +173,11 @@ const gameSlice = createSlice({
 
       // First we check to make sure that the word as a length of six or more
       // because smaller lengths are invalid.
-      if(state.boardData[state.currentTurn].length >= 6) {
+      if(state.boardData[state.currentTurn].length >= state.difficulty) {
         let boardWordData = state.boardData[state.currentTurn].toUpperCase().split('');
         let currentWordData = state.currentWord.toUpperCase().split('');
 
-        for(let i = 0; i < 6; i++) {
+        for(let i = 0; i < state.difficulty; i++) {
           if(boardWordData[i] === currentWordData[i] && !state.exactLetters.includes(boardWordData[i])) {
             state.exactLetters = [...state.exactLetters, boardWordData[i]];
 
@@ -182,6 +212,15 @@ const gameSlice = createSlice({
      */
     setStatus(state, action) {
       state.status = action.payload.status;
+    },
+
+
+    setDifficulty(state, action) {
+      state.difficulty = action.payload.difficulty;
+    },
+
+    setSoundEnabled(state, action) {
+      state.soundEnabled = action.payload.soundEnabled;
     }
   }
 })
@@ -192,7 +231,9 @@ export const {
   addLetter,
   removeLetter,
   submitWord,
-  setStatus
+  setStatus,
+  setDifficulty,
+  setSoundEnabled
 
 } = gameSlice.actions;
 
