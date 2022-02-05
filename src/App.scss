@@ -1,14 +1,25 @@
 main
 {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center-content
+{
+  display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 
   height: 100%;
   width: 100%;
 
   max-width: 500px;
-
-  margin-left: auto;
-  margin-right: auto;
 }

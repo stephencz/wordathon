@@ -22,11 +22,13 @@ const App = (props) => {
 
   return (
     <main>
-      <Header />
-      <GameInfo />
-      <Board />
-      <Keyboard />
-      <PromptManager />
+      <div className="center-content">
+        <Header />
+        <GameInfo />
+        <Board />
+        <Keyboard />
+        <PromptManager />
+      </div>      
     </main>
   );
 }

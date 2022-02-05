@@ -7,14 +7,14 @@ header
   justify-content: center;
   
   border-bottom: 1px solid $header-border-color;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 header .game-name
 {
   font-weight: 700;
-  font-size: 2rem;
+  font-size: 3rem;
 }
 
 header .game-difficulty

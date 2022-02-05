@@ -6,7 +6,6 @@ import {
   setStatus
 } from "../../slices/game";
 
-import WinSound from "./win.ogg";
 import './Board.scss';
 
 /**
@@ -32,9 +31,6 @@ const Board = (props) => {
 
   useEffect(() => {
     if(status === "round_won") {
-
-      let audio = new Audio(WinSound);
-      audio.play();
       
       const timer = setTimeout(() => {
         dispatch(advanceRound())

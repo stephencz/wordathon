@@ -11,9 +11,16 @@
 }
 
 
-.game-info .game-streak
+.game-info .game-sound-toggle img
 {
+  display: flex;
+  width: 20px;
+  padding: 4px;
+}
 
+.game-info .game-sound-toggle img:hover
+{
+  opacity: 0.25;
 }
 
 .game-info .game-difficulty select

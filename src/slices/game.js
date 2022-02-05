@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import WinSound from './win.ogg';
+import WrongSound from './wrong.ogg';
+
 import FourWords from './word_4.json';
 import FiveWords from './words_5.json';
 import SixWords from './words_6.json';
@@ -196,9 +199,22 @@ const gameSlice = createSlice({
             state.status = "round_lost";
           } else {
             state.currentTurn = state.currentTurn + 1;
-
           }
+
+          if(state.soundEnabled) {
+            let audio = new Audio(WrongSound);
+            audio.volume = 0.5;
+            audio.play();
+          }
+          
+
         } else {
+
+          if(state.soundEnabled) {
+            let audio = new Audio(WinSound);
+            audio.play();
+          }
+          
           state.status = "round_won"
           state.currentTurn = state.currentTurn + 1;
         }
