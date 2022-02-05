@@ -61,6 +61,7 @@ const GameInfo = (props) => {
         Streak: { streak }
       </div>
       <div className="game-difficulty">
+        <span style={{marginRight: 15}}>Difficulty:</span>
         <select id="difficulty-levels" name="difficulty-levels" defaultValue={"5"} onChange={ handleChangeDifficulty }>
           <option value="3">Easy</option>
           <option value="5" >Normal</option>

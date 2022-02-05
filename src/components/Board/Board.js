@@ -1,9 +1,8 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-  advanceRound,
-  setStatus
+  advanceRound
 } from "../../slices/game";
 
 import './Board.scss';
@@ -26,6 +25,8 @@ const Board = (props) => {
   const status = useSelector((state) => state.game.status);
   const difficulty = useSelector((state) => state.game.difficulty);
 
+  const [resize, setResize] = useState(false);
+
   // Board Resizing for Responsive Design
   const boardRef = useRef(null);
 
@@ -38,16 +39,16 @@ const Board = (props) => {
       return () => clearTimeout(timer);
     } 
 
-    if(status === "resize") {
-      dispatch(setStatus({ status: null }))
+    if(resize === true) {
+      setResize(false);
     } 
     
-  }, [boardData, status, dispatch])
+  }, [boardData, resize, status, setResize, dispatch])
 
   useLayoutEffect(() => {
 
       const handleResize = () => {
-        dispatch(setStatus({status: "resize"}));
+        setResize(true);
       }
   
       window.addEventListener("resize", handleResize);
@@ -58,7 +59,7 @@ const Board = (props) => {
         document.removeEventListener("load", handleResize);
       }
     
-  }, [dispatch])
+  }, [setResize])
 
   const getTileStyles = () => {
 
